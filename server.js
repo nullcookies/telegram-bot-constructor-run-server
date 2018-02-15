@@ -1,13 +1,11 @@
-import { exec } from 'child_process';
-
 const express = require('express')
 const excex = require('child_process').exec
 
 const app = express()
 
-app.get('/refresh-container', (request, respons) => {
+app.get('/refresh-container', (request, response) => {
     exec('sudo docker images', (err, stdout, stderr) => {
-        console.log(stdout)
+        response.json({ stdout: stdout })
     })
 })
 
