@@ -1,5 +1,5 @@
 const express = require('express')
-const excex = require('child_process').exec
+const exec = require('child_process').exec
 
 const app = express()
 
