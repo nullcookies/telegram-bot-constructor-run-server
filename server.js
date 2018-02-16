@@ -9,6 +9,7 @@ const botConstructorRepositoryLink = 'https://github.com/s-buhar0v/telegram-bot-
 
 app.get('/refresh-image', (request, response) => {
     fs.exists('./temp/telegram-bot-constructor', botConstructorExists => {
+        console.log(botConstructorExists)
         if (botConstructorExists) {
             exec(`cd ./temp/telegram-bot-constructor; git clone ${botConstructorRepositoryLink}`, (err, stdout, stderr) => {
                 response.json({ stdout: stdout })
