@@ -5,9 +5,12 @@ const fs = require('fs')
 const app = express()
 
 app.get('/refresh-image', (request, response) => {
-    exec('./scritps/refresh-image.sh', (err, stdout, stderr) => {
+    exec('chmod +x ./scritps/refresh-image.sh', (err, stdout, stderr) => {
         console.log(err, stderr)
-        response.json({ stdout: stdout })
+        exec('./scritps/refresh-image.sh', (err, stdout, stderr) => {
+            console.log(err, stderr)
+            response.json({ stdout: stdout })
+        })
     })
 })
 
