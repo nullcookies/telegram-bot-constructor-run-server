@@ -10,20 +10,25 @@ app.get('/refresh-image', (request, response) => {
         then
             cd ./temp
             git clone https://github.com/s-buhar0v/telegram-bot-constructor-bot.git
-            ls
             cd ./telegram-bot-constructor-bot
         else
             cd ./temp/telegram-bot-constructor-bot
             git pull
-        fi
-        sudo docker build -t dev-bot-1/bot .`, (err, stdout, stderr) => {
+        fi`, (err, stdout, stderr) => {
             console.log(err)
             console.log(stderr)
-            if (err || stderr) {
-                response.json({ err: 'Failed to buildimage' })
-            } else {
-                response.json({ err: 'Image has been built successfully' })
-            }
+            console.log(stdout)
+            exec(`ls`, (err, stdout, stderr) => {
+                console.log(err)
+                console.log(stderr)
+                console.log(stdout)
+                if (err || stderr) {
+                    response.json({ err: 'Failed to buildimage' })
+                } else {
+                    response.json({ err: 'Image has been built successfully' })
+                }
+            })
+
         })
 })
 
