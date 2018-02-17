@@ -4,10 +4,6 @@ const path = require('path')
 
 const app = express()
 
-const refreshImageScriptPath = path.join(process.env.HOME, 'telegram-bot-constructor/telegram-bot-constructor-run-server/scritps/rebuild-image.sh')
-
-console.log(`sudo chmod +x ${refreshImageScriptPath}`)
-
 app.get('/refresh-image', (request, response) => {
     exec(`
         if ! test -d ./temp/telegram-bot-constructor-bot
@@ -18,6 +14,8 @@ app.get('/refresh-image', (request, response) => {
             cd ./temp/telegram-bot-constructor-bot
             git pull
         fi`, (err, stdout, stderr) => {
+            console.log(err)
+            console.log(stderr)
             if (err || stderr) {
                 response.json({ err: 'Failed to buildimage' })
             } else {
