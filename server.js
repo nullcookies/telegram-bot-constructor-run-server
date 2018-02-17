@@ -15,7 +15,7 @@ app.get('/refresh-image', (request, response) => {
             git pull
         fi
         ls
-        sudo docker build -t dev-bot-1/bot .`, (err, stdout, stderr) => {
+        sudo docker build -t dev-bot-1/bot ./telegram-bot-constructor-bot`, (err, stdout, stderr) => {
             console.log(err)
             console.log(stderr)
             if (err || stderr) {
