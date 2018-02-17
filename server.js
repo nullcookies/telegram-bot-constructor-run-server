@@ -6,7 +6,7 @@ const app = express()
 
 const refreshImageScriptPath = path.join(process.env.HOME, 'telegram-bot-constructor/telegram-bot-constructor-run-server/scritps/rebuild-image.sh')
 
-console.log(refreshImageScriptPath)
+console.log(`sudo chmod +x ${refreshImageScriptPath}`)
 
 app.get('/refresh-image', (request, response) => {
     exec(`sudo chmod +x ${refreshImageScriptPath}`, (err, stdout, stderr) => {
