@@ -18,6 +18,8 @@ app.get('/refresh-image', (request, response) => {
                 git pull
             fi`, (err, stdout, stderr) => {
             console.log(stdout, stderr)
+
+            response.json({stdout:stdout})
         })
 })
 
