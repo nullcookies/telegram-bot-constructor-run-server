@@ -18,7 +18,9 @@ app.get('/refresh-image', (request, response) => {
             console.log(err)
             console.log(stderr)
             console.log(stdout)
-            exec(`ls`, (err, stdout, stderr) => {
+            exec(`
+                cd ./temp/ telegram-bot-constructor-bot
+                docker build -t dev-bot-1/bot .`, (err, stdout, stderr) => {
                 console.log(err)
                 console.log(stderr)
                 console.log(stdout)
