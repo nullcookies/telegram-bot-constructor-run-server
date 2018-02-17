@@ -9,17 +9,20 @@ const refreshImageScriptPath = path.join(process.env.HOME, 'telegram-bot-constru
 console.log(`sudo chmod +x ${refreshImageScriptPath}`)
 
 app.get('/refresh-image', (request, response) => {
-    exec(`if ! test -d ./temp/telegram-bot-constructor-bot
-          then
+    exec(`
+        if ! test -d ./temp/telegram-bot-constructor-bot
+        then
             cd ./temp/
             git clone https://github.com/s-buhar0v/telegram-bot-constructor-bot.git
-            else
-                cd ./temp/telegram-bot-constructor-bot
-                git pull
-            fi`, (err, stdout, stderr) => {
-            console.log(stdout, stderr)
-
-            response.json({stdout:stdout})
+        else
+            cd ./temp/telegram-bot-constructor-bot
+            git pull
+        fi`, (err, stdout, stderr) => {
+            if (err || stderr) {
+                response.json({ err: 'Failed to buildimage' })
+            } else {
+                response.json({ err: 'Image has been built successfully' })
+            }
         })
 })
 
