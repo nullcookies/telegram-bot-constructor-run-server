@@ -19,7 +19,7 @@ app.get('/refresh-image', (request, response) => {
             console.log(stdout)
             exec(`
                 cd ./temp/telegram-bot-constructor-bot
-                sudo docker build -t dev-bot-1/bot .`, (err, stdout, stderr) => {
+                sudo docker build -t --no-cache dev-bot-1/bot .`, (err, stdout, stderr) => {
                 console.log(err)
                 console.log(stderr)
                 console.log(stdout)
