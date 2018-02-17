@@ -1,8 +1,8 @@
-if ! test -d ./temp/telegram-bot-constructor-bot
+if ! test -d $HOME/telegram-bot-constructor/telegram-bot-constructor-run-server/temp/telegram-bot-constructor-bot
 then
-   cd ./temp
+   cd $HOME/telegram-bot-constructor/telegram-bot-constructor-run-server/temp/
    git clone https://github.com/s-buhar0v/telegram-bot-constructor-bot.git
 else
-   cd ./temp/telegram-bot-constructor-bot
+   cd $HOME/telegram-bot-constructor/telegram-bot-constructor-run-server/temp/telegram-bot-constructor-bot
    git pull
 fi
