@@ -19,14 +19,20 @@ app.get('/refresh-image', (request, response) => {
             console.log(stdout)
             exec(`
                 cd ./temp/telegram-bot-constructor-bot
+                if docker ps -a -q --filter="ancestor=dev-bot-1/bot" 
+                then
+                    sudo docker stop $(docker ps -a -q --filter="ancestor=dev-bot-1/bot")
+                    sudo docker rm $(docker ps -a -q --filter="ancestor=dev-bot-1/bot")
+                fi
+                sudo docker rmi dev-bot-1/bot
                 sudo docker build -t --no-cache dev-bot-1/bot .`, (err, stdout, stderr) => {
                 console.log(err)
                 console.log(stderr)
                 console.log(stdout)
                 if (err || stderr) {
-                    response.json({ err: 'Failed to buildimage' })
+                    response.json({ response: 'Failed to buildimage' })
                 } else {
-                    response.json({ err: 'Image has been built successfully' })
+                    response.json({ response: 'Image has been built successfully' })
                 }
             })
 
