@@ -6,12 +6,7 @@ const scripts = require('./scritps')
 
 const app = express()
 
-app.get('/refresh-image', async (request, response) => {
-
-    await exec(scripts.cloneRepository)
-    await  exec(scripts.removeContainers)
-    await exec(scripts.buildImage)
-    await exec(scripts.removeImage)
+app.get('/rebuild-image', async (request, response) => {
     exec(scripts.cloneRepository, (err, stdout, stderr) => {
         console.log(err)
         console.log(`stderr:${stderr}`)
