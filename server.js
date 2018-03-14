@@ -9,7 +9,7 @@ const app = express()
 app.get('/refresh-image', (request, response) => {
     exec(scripts.cloneRepository, (err, stdout, stderr) => {
         console.log(err)
-        console.log(`stderr:${stderr})
+        console.log(`stderr:${stderr}`)
         console.log(stdout)
         if (err || stderr) {
             response.json({ response: 'Failed to buildimage' })
