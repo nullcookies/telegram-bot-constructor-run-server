@@ -12,17 +12,21 @@ module.exports = {
         cd ./temp/telegram-bot-constructor-bot
         sudo git pull
     fi`,
-
-    removeOldImage: `
-    cd ./temp/telegram-bot-constructor-bot
-    if sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot" 
+    removeContainers: `
+    if sudo docker images -q dev-bot-1/bot
     then
-        sudo docker stop $(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")
-        sudo docker rm $(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")
-    fi
+        if sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot" 
+        then
+            sudo docker stop $(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")
+            sudo docker rm $(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")
+        fi  
+    fi`,
+    removeImage: `
     if sudo docker images -q dev-bot-1/bot
     then
         sudo docker rmi dev-bot-1/bot
     fi`,
-    buildImage: `sudo docker build --no-cache -t dev-bot-1/bot .`
+    buildImage: `
+    cd ./temp/telegram-bot-constructor-bot
+    sudo docker build --no-cache -t dev-bot-1/bot .`
 }

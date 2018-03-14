@@ -11,32 +11,30 @@ app.get('/refresh-image', (request, response) => {
         console.log(err)
         console.log(`stderr:${stderr}`)
         console.log(stdout)
-        if (err) {
-            response.json({ response: 'Failed to buildimage' })
-        }
 
-        exec(scripts.removeOldImage, (err, stdout, stderr) => {
+        exec(scripts.removeContainers, (err, stdout, stderr) => {
             console.log(err)
             console.log(`stderr:${stderr}`)
             console.log(stdout)
-            if (err) {
-                response.json({ response: 'Failed to buildimage' })
-            }
 
-            exec(scripts.buildImage, (err, stdout, stderr) => {
+            exec(scripts.removeImage, (err, stdout, stderr) => {
                 console.log(err)
                 console.log(`stderr:${stderr}`)
                 console.log(stdout)
-                if (err) {
-                    response.json({ response: 'Failed to buildimage' })
-                } else {
-                    response.json({ response: 'Image has been built successfully' })
-                }
 
+                exec(scripts.buildImage, (err, stdout, stderr) => {
+                    console.log(err)
+                    console.log(`stderr:${stderr}`)
+                    console.log(stdout)
+
+                    if (err) {
+                        response.json({ response: 'Failed to buildimage' })
+                    } else {
+                        response.json({ response: 'Image has been built successfully' })
+                    }
+                })
             })
-
         })
-
     })
 })
 
