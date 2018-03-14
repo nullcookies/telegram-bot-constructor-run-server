@@ -8,12 +8,12 @@ const app = express()
 
 app.get('/rebuild-image', async (request, response) => {
 
-    await exec(scripts.cloneRepository)
-    await exec(scripts.removeContainers)
-    await exec(scripts.buildImage)
-    await exec(scripts.removeImage)
-
     try {
+        await exec(scripts.cloneRepository)
+        await exec(scripts.removeContainers)
+        await exec(scripts.buildImage)
+        await exec(scripts.removeImage)
+
         response.json({ response: 'Image has been built successfully' })
     } catch (error) {
         response.json({ response: `Failed to buildimage:${error}` })
