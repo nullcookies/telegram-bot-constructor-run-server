@@ -13,8 +13,8 @@ module.exports = {
     cd ./temp/telegram-bot-constructor-bot
     if docker ps -a -q --filter="ancestor=dev-bot-1/bot" 
     then
-        sudo docker stop $(docker ps -a -q --filter="ancestor=dev-bot-1/bot")
-        sudo docker rm $(docker ps -a -q --filter="ancestor=dev-bot-1/bot")
+        sudo docker stop $(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")
+        sudo docker rm $(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")
     fi
     sudo docker rmi dev-bot-1/bot
     sudo docker build -t --no-cache dev-bot-1/bot .`
