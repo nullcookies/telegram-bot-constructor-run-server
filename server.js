@@ -6,36 +6,18 @@ const scripts = require('./scritps')
 
 const app = express()
 
-app.get('/refresh-image', (request, response) => {
-    exec(scripts.cloneRepository, (err, stdout, stderr) => {
-        console.log(err)
-        console.log(`stderr:${stderr}`)
-        console.log(stdout)
+app.get('/rebuild-image', async (request, response) => {
 
-        exec(scripts.removeContainers, (err, stdout, stderr) => {
-            console.log(err)
-            console.log(`stderr:${stderr}`)
-            console.log(stdout)
+    await exec(scripts.cloneRepository)
+    await exec(scripts.removeContainers)
+    await exec(scripts.buildImage)
+    await exec(scripts.removeImage)
 
-            exec(scripts.removeImage, (err, stdout, stderr) => {
-                console.log(err)
-                console.log(`stderr:${stderr}`)
-                console.log(stdout)
-
-                exec(scripts.buildImage, (err, stdout, stderr) => {
-                    console.log(err)
-                    console.log(`stderr:${stderr}`)
-                    console.log(stdout)
-
-                    if (err) {
-                        response.json({ response: 'Failed to buildimage' })
-                    } else {
-                        response.json({ response: 'Image has been built successfully' })
-                    }
-                })
-            })
-        })
-    })
+    try {
+        response.json({ response: 'Image has been built successfully' })
+    } catch (error) {
+        response.json({ response: `Failed to buildimage:${error}` })
+    }
 })
 
 app.listen(3000)
