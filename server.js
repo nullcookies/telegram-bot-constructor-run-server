@@ -12,10 +12,10 @@ app.get('/refresh-image', (request, response) => {
         if ! test -d ./temp/telegram-bot-constructor-bot
         then
             cd ./temp
-            git clone https://github.com/s-buhar0v/telegram-bot-constructor-bot.git
+            sudo git clone https://github.com/s-buhar0v/telegram-bot-constructor-bot.git
         else
             cd ./temp/telegram-bot-constructor-bot
-            git pull
+            sudo git pull
         fi`, (err, stdout, stderr) => {
 
             console.log(err)
