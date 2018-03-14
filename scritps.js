@@ -1,5 +1,9 @@
 module.exports = {
     cloneRepository: `
+    if ! test -d ./temp
+    then
+        sudo mkdir temp
+    fi
     if ! test -d ./temp/telegram-bot-constructor-bot
     then
         cd ./temp
@@ -16,6 +20,9 @@ module.exports = {
         sudo docker stop $(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")
         sudo docker rm $(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")
     fi
-    sudo docker rmi dev-bot-1/bot
-    sudo docker build -t --no-cache dev-bot-1/bot .`
+    if sudo docker images -q dev-bot-1/bot
+    then
+        sudo docker rmi dev-bot-1/bot
+    fi
+    sudo docker build -t dev-bot-1/bot .`
 }

@@ -11,11 +11,23 @@ app.get('/refresh-image', (request, response) => {
         console.log(err)
         console.log(`stderr:${stderr}`)
         console.log(stdout)
-        if (err || stderr) {
+        if (err) {
             response.json({ response: 'Failed to buildimage' })
         } else {
             response.json({ response: 'Image has been built successfully' })
         }
+
+        exec(scripts.buildImage, (err, stdout, stderr) => {
+            console.log(err)
+            console.log(`stderr:${stderr}`)
+            console.log(stdout)
+            if (err) {
+                response.json({ response: 'Failed to buildimage' })
+            } else {
+                response.json({ response: 'Image has been built successfully' })
+            }
+
+        })
 
     })
 })
