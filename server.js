@@ -13,8 +13,6 @@ app.get('/refresh-image', (request, response) => {
         console.log(stdout)
         if (err) {
             response.json({ response: 'Failed to buildimage' })
-        } else {
-            response.json({ response: 'Image has been built successfully' })
         }
 
         exec(scripts.removeOldImage, (err, stdout, stderr) => {
@@ -23,8 +21,6 @@ app.get('/refresh-image', (request, response) => {
             console.log(stdout)
             if (err) {
                 response.json({ response: 'Failed to buildimage' })
-            } else {
-                response.json({ response: 'Image has been built successfully' })
             }
 
             exec(scripts.buildImage, (err, stdout, stderr) => {
