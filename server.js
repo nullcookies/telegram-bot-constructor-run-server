@@ -2,7 +2,7 @@ const express = require('express')
 const axios = require('axios')
 const bodyParser = require('body-parser')
 
-const botContainerManager = require('./bot-container-manager')
+const botContainerManager = require('./bot-manager')
 const apiUrl = require('./config').apiUrl
 
 const app = express()
@@ -31,11 +31,15 @@ app.post('/rebuild-image', async (request, response) => {
 app.get('/start/:id', async (request, response) => {
     const botId = request.params.id
 
-    axios.get(`${apiUrl}/api/bot?id=${botId}`)
-        .then(apiResponse => {
-            let botName = apiResponse.data.name
-            let botToken = apiResponse.data.token
+    const botId = request.params.id
 
+    botContainerManager.getBotById(botId, (bot, err) => {
+        if (err) {
+            response.status = 500
+            response.json({
+                response: `Failed:${err}`
+            })
+        } else {
             botContainerManager.runBotInstacne(botName, botToken, err => {
                 if (err) {
                     response.status = 500
@@ -49,12 +53,36 @@ app.get('/start/:id', async (request, response) => {
                     })
                 }
             })
-        }).catch(err => {
+        }
+    })
+})
+
+app.get('/stop/:id', async (request, response) => {
+    const botId = request.params.id
+
+    botContainerManager.getBotById(botId, (bot, err) => {
+        if (err) {
             response.status = 500
             response.json({
                 response: `Failed:${err}`
             })
-        })
+        } else {
+            botContainerManager.runBotInstacne(botName, botToken, err => {
+                if (err) {
+                    response.status = 500
+                    response.json({
+                        response: `Failed:${err}`
+                    })
+                } else {
+                    response.status = 200
+                    response.json({
+                        response: 'Success'
+                    })
+                }
+            })
+        }
+    })
 })
+
 
 app.listen(3000)
