@@ -49,7 +49,7 @@ function stopBotInstacne(botName, callback) {
 }
 
 function getBotById(id, callback) {
-    axios.get(`${apiUrl}/api/bot?id=${botId}`)
+    axios.get(`${apiUrl}/api/bot?id=${id}`)
         .then(apiResponse => {
             let botName = apiResponse.data.name
             let botToken = apiResponse.data.token
