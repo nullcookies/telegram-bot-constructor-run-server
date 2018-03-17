@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/s-buhar0v/telegram-bot-constructor-run-server#readme",
   "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
     "express": "^4.16.2"
   }
 }

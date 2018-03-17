@@ -1,41 +1,60 @@
 const express = require('express')
-const exec = require('child_process').exec
-const path = require('path')
+const axios = require('axios')
+const bodyParser = require('body-parser')
 
-const scripts = require('./scritps')
+const botContainerManager = require('./bot-container-manager')
+const apiUrl = require('./config').apiUrl
 
 const app = express()
 
-app.get('/rebuild-image', async (request, response) => {
-    exec(scripts.cloneRepository, (err, stdout, stderr) => {
-        console.log(err)
-        console.log(`stderr:${stderr}`)
-        console.log(stdout)
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
-        exec(scripts.removeContainers, (err, stdout, stderr) => {
-            console.log(err)
-            console.log(`stderr:${stderr}`)
-            console.log(stdout)
+app.post('/rebuild-image', async (request, response) => {
+    botContainerManager.rebuildDockerContainer((err) => {
+        if (err) {
+            response.status = 500
+            response.json({
+                response: `Failed:${err}`
+            })
+        } else {
+            response.status = 200
+            response.json({
+                response: 'Success'
+            })
+        }
+    })
+})
 
-            exec(scripts.removeImage, (err, stdout, stderr) => {
-                console.log(err)
-                console.log(`stderr:${stderr}`)
-                console.log(stdout)
+app.get('/start', async (request, response) => {
+    const botId = request.params.id
 
-                exec(scripts.buildImage, (err, stdout, stderr) => {
-                    console.log(err)
-                    console.log(`stderr:${stderr}`)
-                    console.log(stdout)
+    axios.get(`${apiUrl}/api/bot?id=${botId}`)
+        .then(response => {
+            let botName = response.data.botName
+            let botToken = response.data.token
 
-                    if (err) {
-                        response.json({ response: 'Failed to buildimage' })
-                    } else {
-                        response.json({ response: 'Image has been built successfully' })
-                    }
-                })
+            botContainerManager.runBotInstacne(botName, botToken, err => {
+                if (err) {
+                    response.status = 500
+                    response.json({
+                        response: `Failed:${err}`
+                    })
+                } else {
+                    response.status = 200
+                    response.json({
+                        response: 'Success'
+                    })
+                }
+            })
+        }).catch(err => {
+            response.status = 500
+            response.json({
+                response: `Failed:${err}`
             })
         })
-    })
 })
 
 app.listen(3000)

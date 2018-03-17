@@ -25,5 +25,8 @@ module.exports = {
     fi`,
     buildImage: `
     cd ./temp/telegram-bot-constructor-bot
-    sudo docker build --no-cache -t dev-bot-1/bot .`
+    sudo docker build --no-cache -t dev-bot-1/bot .`,
+    runBotInstance: `
+    sudo docker run -d -e BOT_ACCESS_TOKEN={token} --name={name} dev-bot-1/bot
+    `
 }
