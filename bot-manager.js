@@ -55,7 +55,7 @@ function getBotById(id, callback) {
             let botToken = apiResponse.data.token
             callback({
                 botName: botName,
-                botAccessToken: botAccessToken
+                botAccessToken: botToken
             }, null)
         }).catch(err => {
             callback(null, err)
