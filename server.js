@@ -31,8 +31,6 @@ app.post('/rebuild-image', async (request, response) => {
 app.get('/start/:id', async (request, response) => {
     const botId = request.params.id
 
-    const botId = request.params.id
-
     botContainerManager.getBotById(botId, (bot, err) => {
         if (err) {
             response.status = 500
@@ -40,7 +38,7 @@ app.get('/start/:id', async (request, response) => {
                 response: `Failed:${err}`
             })
         } else {
-            botContainerManager.runBotInstacne(botName, botToken, err => {
+            botContainerManager.runBotInstacne(bot.botName, bot.botToken, err => {
                 if (err) {
                     response.status = 500
                     response.json({
@@ -67,7 +65,7 @@ app.get('/stop/:id', async (request, response) => {
                 response: `Failed:${err}`
             })
         } else {
-            botContainerManager.runBotInstacne(botName, botToken, err => {
+            botContainerManager.stopBotInstacne(bot.botName, err => {
                 if (err) {
                     response.status = 500
                     response.json({
