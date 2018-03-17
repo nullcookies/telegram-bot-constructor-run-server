@@ -32,9 +32,9 @@ app.get('/start', async (request, response) => {
     const botId = request.params.id
 
     axios.get(`${apiUrl}/api/bot?id=${botId}`)
-        .then(response => {
-            let botName = response.data.botName
-            let botToken = response.data.token
+        .then(apiResponse => {
+            let botName = apiResponse.data.botName
+            let botToken = apiResponse.data.token
 
             botContainerManager.runBotInstacne(botName, botToken, err => {
                 if (err) {
