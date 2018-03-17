@@ -30,6 +30,6 @@ module.exports = {
     sudo docker run -d --rm -e BOT_ACCESS_TOKEN={token} --name={name} dev-bot-1/bot
     `,
     stopBotInstance: `
-    sudo docker stop $(docker ps -q --filter="name={name}")
+    sudo docker stop $(sudo docker ps -q --filter="name={name}")
     `
 }
