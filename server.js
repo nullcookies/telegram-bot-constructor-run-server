@@ -28,12 +28,12 @@ app.post('/rebuild-image', async (request, response) => {
     })
 })
 
-app.get('/start', async (request, response) => {
+app.get('/start/:id', async (request, response) => {
     const botId = request.params.id
 
     axios.get(`${apiUrl}/api/bot?id=${botId}`)
         .then(apiResponse => {
-            let botName = apiResponse.data.botName
+            let botName = apiResponse.data.name
             let botToken = apiResponse.data.token
 
             botContainerManager.runBotInstacne(botName, botToken, err => {
