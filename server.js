@@ -28,8 +28,8 @@ app.post('/rebuild-image', async (request, response) => {
     })
 })
 
-app.get('/start/:id', async (request, response) => {
-    const botId = request.params.id
+app.get('/start', async (request, response) => {
+    const botId = request.query.id
 
     botContainerManager.getBotById(botId, (bot, err) => {
         if (err) {
@@ -56,7 +56,7 @@ app.get('/start/:id', async (request, response) => {
 })
 
 app.get('/stop/:id', async (request, response) => {
-    const botId = request.params.id
+    const botId = request.query.id
 
     botContainerManager.getBotById(botId, (bot, err) => {
         if (err) {
@@ -83,7 +83,7 @@ app.get('/stop/:id', async (request, response) => {
 })
 
 app.get('/check/:id', async (request, response) => {
-    const botId = request.params.id
+    const botId = request.query.id
 
     botContainerManager.getBotById(botId, (bot, err) => {
         if (err) {
