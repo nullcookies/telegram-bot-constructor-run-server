@@ -26,6 +26,9 @@ module.exports = {
     cd ./temp/telegram-bot-constructor-bot
     sudo docker build --no-cache -t dev-bot-1/bot .`,
     runBotInstance: `
+    if [ "$(sudo docker ps -q --filter="name={name}")" ]; then
+        sudo docker stop $(sudo docker ps -q --filter="name={name}")
+    fi
     sudo docker run -d --rm -e BOT_ACCESS_TOKEN={token} --name={name} dev-bot-1/bot
     `,
     stopBotInstance: `
