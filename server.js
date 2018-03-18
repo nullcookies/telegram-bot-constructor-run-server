@@ -38,7 +38,7 @@ app.get('/start/:id', async (request, response) => {
                 response: `Failed:${err}`
             })
         } else {
-            botContainerManager.runBotInstacne(bot.botName, bot.botToken, err => {
+            botContainerManager.runBotInstacne(bot.botName, bot.botAccessToken, err => {
                 if (err) {
                     response.status = 500
                     response.json({
