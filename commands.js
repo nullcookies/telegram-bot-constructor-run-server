@@ -16,7 +16,6 @@ module.exports = {
     if [ "$(sudo docker images -q dev-bot-1/bot)" != "" ]; then
         if [ "$(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")" != "" ]; then
             sudo docker stop $(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")
-            sudo docker rm -f $(sudo docker ps -a -q --filter="ancestor=dev-bot-1/bot")
         fi  
     fi`,
     removeImage: `
@@ -30,12 +29,11 @@ module.exports = {
     if [ "$(sudo docker ps -q --filter="name={name}")" ]; then
         sudo docker stop $(sudo docker ps -q --filter="name={name}")
     fi
-    sudo docker run -d -e BOT_ACCESS_TOKEN={token} --name={name} dev-bot-1/bot
+    sudo docker run --rm -d -e BOT_ACCESS_TOKEN={token} --name={name} dev-bot-1/bot
     `,
     stopBotInstance: `
     if [ "$(sudo docker ps -q --filter="name={name}")" ]; then
         sudo docker stop $(sudo docker ps -q --filter="name={name}")
-        sudo docker rm -f $(sudo docker ps -q --filter="name={name}")
     fi    
     `,
     check: `
