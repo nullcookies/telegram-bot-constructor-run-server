@@ -25,8 +25,8 @@ function rebuildDockerContainer(callback) {
 
 function runBotInstacne(botName, botAccessToken, callback) {
     let runCommand = commands.runBotInstance
-        .replace('{token}', botAccessToken)
-        .replace('{name}', botName)
+        .replace(/{token}/, botAccessToken)
+        .replace(/{name}/, botName)
     exec(runCommand, (err, stdout, stderr) => {
         if (err) {
             callback(err)
@@ -38,7 +38,7 @@ function runBotInstacne(botName, botAccessToken, callback) {
 }
 
 function stopBotInstacne(botName, callback) {
-    let stopCommand = commands.stopBotInstance.replace('{name}', botName)
+    let stopCommand = commands.stopBotInstance.replace(/{name}/, botName)
     exec(stopCommand, (err, stdout, stderr) => {
         if (err) {
             callback(err)
