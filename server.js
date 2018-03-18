@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
-app.post('/rebuild-image', async (request, response) => {
+app.post('/runner-api/rebuild-image', async (request, response) => {
     botContainerManager.rebuildDockerContainer((err) => {
         if (err) {
             response.status = 500
@@ -28,7 +28,7 @@ app.post('/rebuild-image', async (request, response) => {
     })
 })
 
-app.get('/start', async (request, response) => {
+app.get('/runner-api/start', async (request, response) => {
     const botId = request.query.id
 
     botContainerManager.getBotById(botId, (bot, err) => {
@@ -55,7 +55,7 @@ app.get('/start', async (request, response) => {
     })
 })
 
-app.get('/stop', async (request, response) => {
+app.get('/runner-api/stop', async (request, response) => {
     const botId = request.query.id
 
     botContainerManager.getBotById(botId, (bot, err) => {
@@ -82,7 +82,7 @@ app.get('/stop', async (request, response) => {
     })
 })
 
-app.get('/check', async (request, response) => {
+app.get('/runner-api/check', async (request, response) => {
     const botId = request.query.id
 
     botContainerManager.getBotById(botId, (bot, err) => {
