@@ -33,5 +33,8 @@ module.exports = {
     `,
     stopBotInstance: `
     sudo docker stop $(sudo docker ps -q --filter="name={name}")
+    `,
+    check: `
+    sudo docker ps -q --filter="name={name}"
     `
 }

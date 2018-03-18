@@ -82,6 +82,33 @@ app.get('/stop/:id', async (request, response) => {
     })
 })
 
+app.get('/check/:id', async (request, response) => {
+    const botId = request.params.id
+
+    botContainerManager.getBotById(botId, (bot, err) => {
+        if (err) {
+            response.status = 500
+            response.json({
+                response: `Failed:${err}`
+            })
+        } else {
+            botContainerManager.isBotRunning(bot.botName, (status, err) => {
+                if (err) {
+                    response.status = 500
+                    response.json({
+                        response: `Failed:${err}`
+                    })
+                } else {
+                    response.status = 200
+                    response.json({
+                        status: status
+                    })
+                }
+            })
+        }
+    })
+})
+
 
 app.listen(3000, () => {
     console.log('server is listening to port 3000')

@@ -62,7 +62,23 @@ function getBotById(id, callback) {
         })
 }
 
+function isBotRunning(botName, callback) {
+    let checkCommand = commands.check.replace(/{name}/g, botName)
+    exec(checkCommand, (err, stdout, stderr) => {
+        if (err) {
+            callback(null, err)
+        } else {
+            if (stdout) {
+                callback(true, null)
+            } else {
+                callback(false, null)
+            }
+        }
+    })
+}
+
 module.exports.rebuildDockerContainer = rebuildDockerContainer
 module.exports.getBotById = getBotById
 module.exports.runBotInstacne = runBotInstacne
 module.exports.stopBotInstacne = stopBotInstacne
+module.exports.isBotRunning = isBotRunning
