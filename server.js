@@ -55,7 +55,7 @@ app.get('/start', async (request, response) => {
     })
 })
 
-app.get('/stop/:id', async (request, response) => {
+app.get('/stop', async (request, response) => {
     const botId = request.query.id
 
     botContainerManager.getBotById(botId, (bot, err) => {
@@ -82,7 +82,7 @@ app.get('/stop/:id', async (request, response) => {
     })
 })
 
-app.get('/check/:id', async (request, response) => {
+app.get('/check', async (request, response) => {
     const botId = request.query.id
 
     botContainerManager.getBotById(botId, (bot, err) => {
