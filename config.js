@@ -1,3 +1,3 @@
 module.exports = {
-    apiUrl: 'http://bot-constructor-api.azurewebsites.net'
+    apiUrl: 'http://bot-harbour.azurewebsites.net/'
 }
